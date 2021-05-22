@@ -23,11 +23,13 @@ public class PlayerController : MonoBehaviour
         velocity = transform.up * verticalInput * speed;
         rotateAngle = horizontalInput * rotateSpeed;
         isMoving = (horizontalInput != 0 || verticalInput != 0) ? true : false;
+
     }
-    
+
     void FixedUpdate()
     {
         playerRb.MovePosition(playerRb.position + velocity * Time.fixedDeltaTime);
         playerRb.MoveRotation(playerRb.rotation - rotateAngle * Time.fixedDeltaTime);
     }
+
 }

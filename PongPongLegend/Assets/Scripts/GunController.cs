@@ -18,7 +18,7 @@ public class GunController : MonoBehaviour
     private Vector2 followPoint;
     private Vector2 lookVector;
     private Animator gunAn;
-
+    private bool isCountDownShoot = false;
     void Start()
     {
         gunAn = GetComponent<Animator>();
@@ -27,6 +27,15 @@ public class GunController : MonoBehaviour
     void Update()
     {
         followPoint = Input.mousePosition;
+        if (Input.GetMouseButton(0))
+        {
+            if (!isCountDownShoot)
+                StartCoroutine(CountDownShoot());
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SkillE();
+        }
     }
 
     void FixedUpdate()
@@ -34,5 +43,26 @@ public class GunController : MonoBehaviour
         lookVector = mainCamera.ScreenToWorldPoint(followPoint) - transform.position;
         float angle = Mathf.Atan2(lookVector.y, lookVector.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    void SkillE()
+    {
+
+    }
+
+    IEnumerator CountDownShoot()
+    {
+        isCountDownShoot = true;
+        foreach (Transform shootPoint in shootPoints)
+        {
+            Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+        }
+        yield return new WaitForSeconds(0.5f);
+        isCountDownShoot = false;
+    }
+
+    IEnumerator CountDownSkillE()
+    {
+        yield return new WaitForSeconds(1.0f);
     }
 }
