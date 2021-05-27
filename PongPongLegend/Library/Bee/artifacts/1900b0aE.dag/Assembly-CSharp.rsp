@@ -340,9 +340,11 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/VSSettingsProvider.ref.dll"
 "Assets/Scripts/BulletController.cs"
 "Assets/Scripts/CameraController.cs"
+"Assets/Scripts/DestroyWithTime.cs"
 "Assets/Scripts/GunController.cs"
 "Assets/Scripts/MovingAnimation.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/PlayOneTime.cs"
 -langversion:8.0
 
 /deterministic

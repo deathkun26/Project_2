@@ -117,7 +117,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0028486252, y: 0.006004721}
@@ -146,4 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
-  range: 0
+  range: 20
+  expRange: 2
+  expEffect: {fileID: 7081982799468740847, guid: 62ec50bbd15e15242b6ca366949e1c14, type: 3}

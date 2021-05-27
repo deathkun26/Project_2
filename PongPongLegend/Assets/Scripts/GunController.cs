@@ -13,6 +13,7 @@ public class GunController : MonoBehaviour
     public GameObject bulletPrefab;
     public List<Transform> shootPoints;
     public Camera mainCamera;
+    public ParticleSystem shootParticle;
 
     // private attribute
     private Vector2 followPoint;
