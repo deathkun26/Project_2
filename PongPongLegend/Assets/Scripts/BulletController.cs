@@ -12,30 +12,40 @@ public class BulletController : MonoBehaviour
     [SerializeField] private GameObject expEffect;
     private Rigidbody2D bulletRb;
     private Vector2 firstPos;
+    private bool isDestroy;
     void Start()
     {
         bulletRb = GetComponent<Rigidbody2D>();
         bulletRb.velocity = transform.up * speed;
         firstPos = transform.position;
+        isDestroy = false;
     }
 
     void Update()
     {
         Vector2 crtPos = transform.position;
         Vector2 distance = crtPos - firstPos;
-        if (Mathf.Abs(distance.magnitude) > range)
+        if (Mathf.Abs(distance.magnitude) > range && !isDestroy)
         {
             DestroyBullet();
         }
     }
     void DestroyBullet()
     {
+        isDestroy = true;
         GameObject effect = Instantiate(expEffect, transform.position, Quaternion.identity);
-        effect.transform.localScale = Vector3.one * expRange;
+        Transform[] effectChild = effect.GetComponentsInChildren<Transform>();
+        foreach (Transform child in effectChild)
+        {
+            child.transform.localScale *= expRange;
+        }
         Destroy(gameObject);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        DestroyBullet();
+        if (!isDestroy && other.tag != gameObject.tag)
+        {
+            DestroyBullet();
+        }
     }
 }

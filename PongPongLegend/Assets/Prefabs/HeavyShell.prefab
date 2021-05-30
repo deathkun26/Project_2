@@ -147,5 +147,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   range: 20
-  expRange: 2
+  expRange: 1
   expEffect: {fileID: 7081982799468740847, guid: 62ec50bbd15e15242b6ca366949e1c14, type: 3}

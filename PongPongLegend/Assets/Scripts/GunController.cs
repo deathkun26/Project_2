@@ -9,11 +9,14 @@ public enum GunType
 public class GunController : MonoBehaviour
 {
     // public attribute
+    public bool useMouse;
     public GunType gunType;
     public GameObject bulletPrefab;
     public List<Transform> shootPoints;
     public Camera mainCamera;
     public ParticleSystem shootParticle;
+    public float delay;
+    public GameObject effectPrefab;
 
     // private attribute
     private Vector2 followPoint;
@@ -28,14 +31,14 @@ public class GunController : MonoBehaviour
     void Update()
     {
         followPoint = Input.mousePosition;
-        if (Input.GetMouseButton(0))
+        if (useMouse && Input.GetMouseButton(0))
         {
             if (!isCountDownShoot)
+            {
+                isCountDownShoot = true;
+                gunAn.SetTrigger("Shoot");
                 StartCoroutine(CountDownShoot());
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SkillE();
+            }
         }
     }
 
@@ -46,24 +49,27 @@ public class GunController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    void SkillE()
-    {
-
-    }
-
     IEnumerator CountDownShoot()
     {
-        isCountDownShoot = true;
         foreach (Transform shootPoint in shootPoints)
         {
-            Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+            bullet.tag = gameObject.tag;
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(delay);
         isCountDownShoot = false;
     }
 
-    IEnumerator CountDownSkillE()
+    public void Skill()
     {
-        yield return new WaitForSeconds(1.0f);
+        foreach (Transform shootPoint in shootPoints)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+            bullet.tag = gameObject.tag;
+
+            GameObject effect = Instantiate(effectPrefab, shootPoint.position, shootPoint.rotation);
+            effect.transform.parent = transform;
+        }
+        Debug.Log("Boom!!!");
     }
 }

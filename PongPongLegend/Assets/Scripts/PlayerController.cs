@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool isMoving;
     [SerializeField] private float speed;
     [SerializeField] private float rotateSpeed;
     private Rigidbody2D playerRb;
-    private Vector2 velocity;
-    private float rotateAngle;
-    public bool isMoving;
+    private Vector2 move;
+    private float angle;
 
     void Start()
     {
@@ -18,18 +18,22 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        velocity = transform.up * verticalInput * speed;
-        rotateAngle = horizontalInput * rotateSpeed;
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
         isMoving = (horizontalInput != 0 || verticalInput != 0) ? true : false;
-
+        move.x = horizontalInput;
+        move.y = verticalInput;
+        playerRb.velocity = move * speed;
     }
 
     void FixedUpdate()
     {
-        playerRb.MovePosition(playerRb.position + velocity * Time.fixedDeltaTime);
-        playerRb.MoveRotation(playerRb.rotation - rotateAngle * Time.fixedDeltaTime);
+        if (move != Vector2.zero)
+        {
+            angle = Mathf.Atan2(move.y, move.x) * Mathf.Rad2Deg - 90f;
+        }
+        transform.rotation = Quaternion.RotateTowards(transform.rotation,
+        Quaternion.Euler(0, 0, angle), rotateSpeed * Time.fixedDeltaTime);
     }
 
 }

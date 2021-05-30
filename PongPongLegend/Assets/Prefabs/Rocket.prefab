@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac7da40d52c8e6449d89c873c918479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  range: 20
-  expRange: 5
-  expEffect: {fileID: 581420212663441914, guid: cb0be16a32346fb4bb642e20df5153e3, type: 3}
+  speed: 20
+  range: 30
+  expRange: 2
+  expEffect: {fileID: 6632349170298743898, guid: 336af9e7daf8aa747aa37ba68877beaa, type: 3}

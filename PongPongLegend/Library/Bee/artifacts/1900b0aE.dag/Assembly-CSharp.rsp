@@ -345,6 +345,7 @@
 "Assets/Scripts/MovingAnimation.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/PlayOneTime.cs"
+"Assets/Scripts/RocketLauncher.cs"
 -langversion:8.0
 
 /deterministic
