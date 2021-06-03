@@ -5,16 +5,16 @@ using UnityEngine;
 public class FollowObject : MonoBehaviour
 {
     public Transform followObject;
-    public Vector2 offset;
+    public Vector3 offset;
     // Start is called before the first frame update
     void Start()
     {
-        
+        offset = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        transform.position = followObject.position + offset;
     }
 }

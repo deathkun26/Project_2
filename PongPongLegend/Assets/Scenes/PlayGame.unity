@@ -4890,5 +4890,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthParticle
       objectReference: {fileID: 0}
+    - target: {fileID: 6934790635813039642, guid: 9d3a44005ac94994688df447d8715745, type: 3}
+      propertyPath: followObject
+      value: 
+      objectReference: {fileID: 2010207227}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d3a44005ac94994688df447d8715745, type: 3}
