@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GunType
-{
-    Rocket, TripleGun, DoubleGun, SingleGun
-}
 public class GunController : MonoBehaviour
 {
     // public attribute
     public bool useMouse;
-    public GunType gunType;
     public GameObject bulletPrefab;
     public List<Transform> shootPoints;
     public Camera mainCamera;
     public ParticleSystem shootParticle;
     public float delay;
+    public float delayOfEachBullet;
+    public bool isPlayer;
     public GameObject effectPrefab;
+    public Transform followPlayer;
+    [System.NonSerialized] public bool auto = false;
+    [System.NonSerialized] public float range;
 
     // private attribute
     private Vector2 followPoint;
@@ -25,14 +25,34 @@ public class GunController : MonoBehaviour
     private bool isCountDownShoot = false;
     void Start()
     {
+        range = -1;
         gunAn = GetComponent<Animator>();
     }
 
     void Update()
     {
-        followPoint = Input.mousePosition;
-        if (useMouse && Input.GetMouseButton(0))
+        if (isPlayer)
         {
+            followPoint = Input.mousePosition;
+            lookVector = mainCamera.ScreenToWorldPoint(followPoint) - transform.position;
+            if (useMouse && (Input.GetMouseButtonDown(0) || auto))
+            {
+                if (!isCountDownShoot)
+                {
+                    isCountDownShoot = true;
+                    gunAn.SetTrigger("Shoot");
+                    StartCoroutine(CountDownShoot());
+                }
+            }
+            if (useMouse && Input.GetMouseButtonDown(1))
+            {
+                auto = !auto;
+            }
+        }
+        else if (auto)// for enemy
+        {
+            followPoint = followPlayer.transform.position;
+            lookVector = (Vector3)followPoint - transform.position;
             if (!isCountDownShoot)
             {
                 isCountDownShoot = true;
@@ -44,7 +64,6 @@ public class GunController : MonoBehaviour
 
     void FixedUpdate()
     {
-        lookVector = mainCamera.ScreenToWorldPoint(followPoint) - transform.position;
         float angle = Mathf.Atan2(lookVector.y, lookVector.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
@@ -54,7 +73,10 @@ public class GunController : MonoBehaviour
         foreach (Transform shootPoint in shootPoints)
         {
             GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+            if (range != -1)
+                bullet.GetComponent<BulletController>().range = range;
             bullet.tag = gameObject.tag;
+            yield return new WaitForSeconds(delayOfEachBullet);
         }
         yield return new WaitForSeconds(delay);
         isCountDownShoot = false;

@@ -341,11 +341,17 @@
 "Assets/Scripts/BulletController.cs"
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/DestroyWithTime.cs"
+"Assets/Scripts/EnemyController.cs"
+"Assets/Scripts/FollowObject.cs"
+"Assets/Scripts/GameManager.cs"
 "Assets/Scripts/GunController.cs"
+"Assets/Scripts/HUDController.cs"
 "Assets/Scripts/MovingAnimation.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/PlayOneTime.cs"
 "Assets/Scripts/RocketLauncher.cs"
+"Assets/Scripts/StartGame.cs"
+"Assets/Sprites/Sci-Fi UI/Demo_Assets/scripts/GUI_Demo.cs"
 -langversion:8.0
 
 /deterministic

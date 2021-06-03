@@ -7,17 +7,20 @@ public class PlayerController : MonoBehaviour
     public bool isMoving;
     [SerializeField] private float speed;
     [SerializeField] private float rotateSpeed;
+    [SerializeField] private int health;
     private Rigidbody2D playerRb;
     private Vector2 move;
     private float angle;
 
     void Start()
     {
+
         playerRb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
         isMoving = (horizontalInput != 0 || verticalInput != 0) ? true : false;
@@ -36,4 +39,8 @@ public class PlayerController : MonoBehaviour
         Quaternion.Euler(0, 0, angle), rotateSpeed * Time.fixedDeltaTime);
     }
 
+    public void TakeHit(float damage)
+    {
+        Debug.Log("Player take hit !!");
+    }
 }

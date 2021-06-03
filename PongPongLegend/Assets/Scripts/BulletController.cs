@@ -5,11 +5,12 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     // public attribute
+    public float range;
     // private attribute
     [SerializeField] private float speed;
-    [SerializeField] private float range;
     [SerializeField] private float expRange;
     [SerializeField] private GameObject expEffect;
+    [SerializeField] private float damage;
     private Rigidbody2D bulletRb;
     private Vector2 firstPos;
     private bool isDestroy;
@@ -45,6 +46,22 @@ public class BulletController : MonoBehaviour
     {
         if (!isDestroy && other.tag != gameObject.tag)
         {
+            if (other.tag == "Enemy")
+            {
+                EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
+                if (enemy)
+                {
+                    enemy.TakeHit(damage);
+                }
+            }
+            else if (other.tag == "Player")
+            {
+                PlayerController player = other.gameObject.GetComponent<PlayerController>();
+                if (player)
+                {
+                    player.TakeHit(damage);
+                }
+            }
             DestroyBullet();
         }
     }
