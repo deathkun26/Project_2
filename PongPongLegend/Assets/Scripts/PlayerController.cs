@@ -5,16 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public bool isMoving;
+    public HUDController hUD;
     [SerializeField] private float speed;
     [SerializeField] private float rotateSpeed;
-    [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
+    private int health;
     private Rigidbody2D playerRb;
     private Vector2 move;
     private float angle;
 
     void Start()
     {
-
+        health = maxHealth;
         playerRb = GetComponent<Rigidbody2D>();
     }
 
@@ -39,8 +41,11 @@ public class PlayerController : MonoBehaviour
         Quaternion.Euler(0, 0, angle), rotateSpeed * Time.fixedDeltaTime);
     }
 
-    public void TakeHit(float damage)
+    public void TakeHit(int damage)
     {
+        health -= damage;
+        if (health < 0) health = 0;
+        hUD.UpdateHealth(health, maxHealth);
         Debug.Log("Player take hit !!");
     }
 }

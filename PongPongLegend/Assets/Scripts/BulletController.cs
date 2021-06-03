@@ -10,7 +10,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float expRange;
     [SerializeField] private GameObject expEffect;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
     private Rigidbody2D bulletRb;
     private Vector2 firstPos;
     private bool isDestroy;
